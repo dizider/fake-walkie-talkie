@@ -8,9 +8,11 @@
 #include <Arduino.h>
 
 const int SD_CS = 4; //SD card's CS pin
+const int SPEAKER_PIN = 9;
+const int VOLUME = 6;
 
 //Playback file name
-char FILE_NAME[] = "example.wav";
+const char FILE_NAME[] = "example.wav";
 
 const int redLedPin = 1;
 const int greenLedPin = 1;

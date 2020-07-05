@@ -3,46 +3,37 @@
 //
 
 #include "AudioController.h"
-#include "SimpleSDAudio.h"
 
-AudioController * AudioController::init(int SD_CS) {
+AudioController *AudioController::init() {
+    Serial.println("AUDIO CONTROLLER");
+    Serial.println("----------------");
+
     auto *audioController = new AudioController();
+    audioController->tmrpcm.speakerPin = SPEAKER_PIN;
 
-    SdPlay.setSDCSPin(SD_CS);
-
-    if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER)) {
-        Serial.println("SD card init failed....");
+    if (!SD.begin(SD_CS)) {
+        Serial.println("SD fail");
+        return nullptr;
     }
 
+    audioController->tmrpcm.setVolume(VOLUME);
     return audioController;
 }
 
-bool AudioController::openFile(char *file) {
-    if (!SdPlay.setFile(file)) {
-        Serial.println("Read file failed....");
-        return false;
-    }
-    this->fileName = file;
-    return true;
-}
-
-bool AudioController::isStopped() {
-    return SdPlay.isStopped();
-}
-
 void AudioController::play() {
-    if (SdPlay.isStopped())
-        SdPlay.play();
+    tmrpcm.play(fileName);
 }
 
 bool AudioController::playFile(char *file) {
-    if (!openFile(file))
-        return false;
-    this->fileName = file;
-    play();
+    fileName = file;
+    tmrpcm.play(file);
     return true;
 }
 
 char *AudioController::getFileName() const {
     return fileName;
+}
+
+void AudioController::openFile(char *file) {
+    fileName = file;
 }

@@ -5,13 +5,18 @@
 #ifndef FAKE_WALKIE_TALKIE_AUDIOCONTROLLER_H
 #define FAKE_WALKIE_TALKIE_AUDIOCONTROLLER_H
 
+#include "wiring.h"
+#include "SPI.h"
+#include "SD.h"
+#include "TMRpcm.h"
+
 class AudioController {
 public:
-    static AudioController * init(int SD_CS);
+    static AudioController *init();
 
-    bool openFile(char *file);
+    void openFile(char *file);
 
-    bool isStopped();
+//    bool isStopped();
 
     void play();
 
@@ -21,6 +26,7 @@ public:
 
 private:
     char *fileName;
+    TMRpcm tmrpcm;
 };
 
 
