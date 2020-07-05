@@ -1,5 +1,5 @@
 //
-// Created by matej on 05.07.20.
+// Created by Matěj Jehlička on 05.07.20.
 //
 
 #ifndef FAKE_WALKIE_TALKIE_RF24CHECKER_H
