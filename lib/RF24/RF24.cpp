@@ -397,26 +397,22 @@ void RF24::print_byte_register(const char *name, uint8_t reg, uint8_t qty) {
 
 /****************************************************************************/
 
+void RF24::get_register(uint8_t reg, uint8_t *res) {
+    read_register(reg, res, addr_width);
+}
+
 long RF24::get_register(uint8_t reg, uint8_t qty) {
     long address = 0;
     while (qty--) {
         uint8_t buffer[addr_width];
         read_register(reg++, buffer, sizeof buffer);
 
-//        printf_P(PSTR(" 0x"));
         uint8_t *bufptr = buffer + sizeof buffer;
-//        int pow = 0;
         while (--bufptr >= buffer) {
             address = address << 8;
             address += (*bufptr);
-//            printf_P(PSTR("%02x"), *bufptr);
-//            Serial.print(*bufptr, HEX);
-//            Serial.print(" ");
-//            pow++;
         }
     }
-//    Serial.print("Prectena adresa: ");
-//    Serial.println(address, HEX);
     return address;
 }
 
@@ -432,20 +428,13 @@ void RF24::print_address_register(const char *name, uint8_t reg, uint8_t qty) {
         uint8_t buffer[addr_width];
         read_register(reg++, buffer, sizeof buffer);
 
-//        printf_P(PSTR(" 0x"));
+        printf_P(PSTR(" 0x"));
         uint8_t *bufptr = buffer + sizeof buffer;
-        int pow = 0;
         while (--bufptr >= buffer) {
-            address += (*bufptr) << (pow * 8);
-//            printf_P(PSTR("%02x"), *bufptr);
-            Serial.print(*bufptr, HEX);
-            Serial.print(" ");
-            pow++;
+            printf_P(PSTR("%02x"), *bufptr);
         }
     }
-    Serial.print("Prectena adresa: ");
-    Serial.println(address, HEX);
-//    printf_P(PSTR("\r\n"));
+    printf_P(PSTR("\r\n"));
 }
 
 #endif
@@ -609,10 +598,16 @@ void RF24::printDetails(void) {
 }
 
 long RF24::getTXAddr() {
-//    print_address_register(PSTR("TX_ADDR\t"), TX_ADDR, 1);
     return get_register(TX_ADDR);
 }
 
+void RF24::getTXAddr(uint8_t *addr) {
+    get_register(TX_ADDR, addr);
+}
+
+void RF24::getRX0Addr(uint8_t *addr){
+    get_register(RX_ADDR_P1, addr);
+}
 #endif // !defined(MINIMAL)
 
 /****************************************************************************/

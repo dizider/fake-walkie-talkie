@@ -327,6 +327,7 @@ public:
      */
     void printDetails(void);
     long getTXAddr();
+    void getTXAddr(uint8_t *addr);
     /**
      * Test whether there are bytes available to be read in the
      * FIFO buffers.
@@ -1036,6 +1037,10 @@ public:
 
 /**@}*/
 
+    uint8_t get_register_byte(uint8_t reg, uint8_t byte);
+
+    void getRX0Addr(uint8_t *addr);
+
 private:
 
     /**
@@ -1178,7 +1183,6 @@ private:
      * @param qty How many successive registers to print
      */
     void print_address_register(const char* name, uint8_t reg, uint8_t qty = 1);
-    long get_register(uint8_t reg, uint8_t qty = 1);
     #endif
 
     /**
@@ -1200,6 +1204,11 @@ private:
     void errNotify(void);
 
     #endif
+
+
+    long get_register(uint8_t reg, uint8_t qty = 1);
+
+    void get_register(uint8_t reg, uint8_t *res);
 
 
 };
