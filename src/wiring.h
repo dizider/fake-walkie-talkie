@@ -11,6 +11,9 @@ const int SD_CS = 4; //SD card's CS pin
 const int SPEAKER_PIN = 9;
 const int VOLUME = 6;
 
+const int RF_CS = 2;
+const int RF_CE = 3;
+
 //Playback file name
 const char FILE_NAME[] = "example.wav";
 
