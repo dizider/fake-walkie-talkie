@@ -16,13 +16,7 @@ public:
 
     void openFile(char *file);
 
-//    bool isStopped();
-
     void play();
-
-    bool playFile(char *file);
-
-    char *getFileName() const;
 
 private:
     char *fileName;
