@@ -5,6 +5,8 @@
 AudioController *audioController;
 RF24Checker *rf24Checker;
 
+int soundTackCounter = 1;
+
 void setup() {
     Serial.begin(9600);
     Serial.println("Fake walkie-talkie");
@@ -13,7 +15,6 @@ void setup() {
 
     if (audioController != nullptr) {
         Serial.println("* SD CARD OK");
-        audioController->openFile(FILE_NAME);
     } else
         Serial.println("! SD CARD FAILED");
 
@@ -25,7 +26,23 @@ void setup() {
 }
 
 void loop() {
+
     if (rf24Checker->check()) {
+        String fileName = "";
+        fileName.concat(soundTackCounter);
+        fileName.concat(".wav");
+
+        audioController->openFile(fileName.c_str());
         audioController->play();
+
+        Serial.print(fileName);
+        Serial.println(" is playing.");
+
     }
+
+    while(audioController->isPlaying()){
+        //LED ON
+    }
+
+    soundTackCounter++;
 }
