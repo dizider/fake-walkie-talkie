@@ -35,6 +35,8 @@ public:
      * */
     bool test();
 
+    void resetAddresses();
+
 private:
     /**
      * Default constructor initialize CS and CE pin.
@@ -43,10 +45,6 @@ private:
         radio.begin();
     }
 
-public:
-    long getAddress();
-
-private:
     bool wiringCorrect = false;
     const int CS;
     const int CE;

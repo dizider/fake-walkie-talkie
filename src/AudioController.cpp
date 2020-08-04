@@ -19,6 +19,10 @@ void AudioController::play() {
     tmrpcm.play(fileName);
 }
 
-void AudioController::openFile(char *file) {
+void AudioController::openFile(const char *file) {
     fileName = file;
+}
+
+bool AudioController::isPlaying() {
+    return tmrpcm.isPlaying();
 }

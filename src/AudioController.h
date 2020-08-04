@@ -12,11 +12,29 @@
 
 class AudioController {
 public:
+    /**
+     * Initialize new instance od AudioController class.
+     *
+     * @return new initialize instance of AudioController
+     * */
     static AudioController *init();
 
-    void openFile(char *file);
+    /**
+     * Sets name of the file to be played.
+     * */
+    void openFile(const char *file);
 
+    /**
+     * Starts playback of prepared file (name saved in fileName)
+     * */
     void play();
+
+    /**
+     * Check if playback is on.
+     *
+     * @return actual playback state
+     * */
+    bool isPlaying();
 
 private:
     char *fileName;

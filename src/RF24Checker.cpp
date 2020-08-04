@@ -13,9 +13,9 @@ bool RF24Checker::check() const {
     return wiringCorrect;
 }
 
-long RF24Checker::getAddress() {
-    return this->radio.getTXAddr();
-}
+//long RF24Checker::getAddress() {
+//    return this->radio.getTXAddr();
+//}
 
 bool RF24Checker::test() {
     auto *buffer = new uint8_t[5];
@@ -37,4 +37,9 @@ bool RF24Checker::test() {
     }
     wiringCorrect = true;
     return true;
+}
+
+void RF24Checker::resetAddresses() {
+    radio.openWritingPipe(testAddr[0]);
+    radio.openReadingPipe(1, testAddr[0]);
 }

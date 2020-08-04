@@ -10,6 +10,7 @@ int soundTackCounter = 1;
 void setup() {
     Serial.begin(9600);
     Serial.println("Fake walkie-talkie");
+    Serial.println("------------------");
     rf24Checker = RF24Checker::init(RF_CS, RF_CE);
     audioController = AudioController::init();
 
@@ -23,9 +24,13 @@ void setup() {
         Serial.println("* RF24 OK");
     else
         Serial.println("! RF24 FAILED");
+
+    rf24Checker->resetAddresses();
 }
 
 void loop() {
+
+    digitalWrite(redLedPin, LOW);
 
     if (rf24Checker->check()) {
         String fileName = "";
@@ -37,11 +42,10 @@ void loop() {
 
         Serial.print(fileName);
         Serial.println(" is playing.");
-
     }
 
-    while(audioController->isPlaying()){
-        //LED ON
+    while (audioController->isPlaying()) {
+        digitalWrite(redLedPin, HIGH);
     }
 
     soundTackCounter++;
